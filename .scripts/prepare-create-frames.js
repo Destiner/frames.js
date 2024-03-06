@@ -19,7 +19,7 @@ await fse.copy(
   resolve(__dirname, "../templates"),
   resolve(__dirname, "../packages/create-frames/templates"),
   {
-    filter: (src) => !/(node_modules|\.turbo\/|\.next\/)/.test(src),
+    filter: (src) => !/(node_modules|\.turbo|\.next|next-env\.d\.ts)/.test(src),
   }
 );
 
