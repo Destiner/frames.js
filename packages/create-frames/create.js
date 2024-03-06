@@ -5,9 +5,8 @@ import { fileURLToPath } from "node:url";
 import { spawnSync } from "node:child_process";
 import ignore from "ignore";
 import pc from "picocolors";
-import * as fs from "@ndelangen/fs-extra-unified";
 import { detect as detectPackageManager } from "detect-package-manager";
-import { readFileSync, readdirSync, renameSync } from "node:fs";
+import { cpSync, readFileSync, readdirSync, renameSync, writeFileSync } from "node:fs";
 import { packageManagerRunCommand } from "./utils/packageManagerRunCommand.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -66,7 +65,9 @@ export async function create(params) {
   );
   const ignored = ignore().add(ignoredPatterns);
 
-  fs.copySync(templateDir, destDir, {
+  cpSync(templateDir, destDir, {
+    force: true,
+    recursive: true,
     filter(src) {
       const path = relative(templateDir, src);
 
@@ -84,9 +85,9 @@ export async function create(params) {
   }
 
   const pkgJsonPath = resolve(destDir, "package.json");
-  const pkgJson = fs.readJsonSync(pkgJsonPath, "utf-8");
+  const pkgJson = JSON.parse(readFileSync(pkgJsonPath, "utf-8"));
   pkgJson.name = projectName;
-  fs.writeJSONSync(pkgJsonPath, pkgJson, { spaces: 2 });
+  writeFileSync(pkgJsonPath, JSON.stringify(pkgJson, null, 2));
 
   log.success(`Project successfully scaffolded in ${pc.blue(destDir)}!`);
 

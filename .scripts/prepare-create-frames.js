@@ -6,19 +6,19 @@
 
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import * as fse from "@ndelangen/fs-extra-unified";
 import glob from "fast-glob";
-import { rimraf } from "rimraf";
-import { renameSync } from 'node:fs';
+import { cpSync, renameSync, rmSync } from 'node:fs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-await rimraf(resolve(__dirname, "../packages/create-frames/templates"));
 
-await fse.copy(
+rmSync(resolve(__dirname, "../packages/create-frames/templates"), { force: true, recursive: true });
+
+cpSync(
   resolve(__dirname, "../templates"),
   resolve(__dirname, "../packages/create-frames/templates"),
   {
+    recursive: true,
     filter: (src) => !/(node_modules|\.turbo|\.next|next-env\.d\.ts)/.test(src),
   }
 );
