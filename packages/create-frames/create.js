@@ -6,7 +6,13 @@ import { spawnSync } from "node:child_process";
 import ignore from "ignore";
 import pc from "picocolors";
 import { detect as detectPackageManager } from "detect-package-manager";
-import { cpSync, readFileSync, readdirSync, renameSync, writeFileSync } from "node:fs";
+import {
+  cpSync,
+  readFileSync,
+  readdirSync,
+  renameSync,
+  writeFileSync,
+} from "node:fs";
 import { packageManagerRunCommand } from "./utils/packageManagerRunCommand.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -22,7 +28,6 @@ export async function create(params) {
 
   intro("Welcome to frames.js");
 
-  // @see https://github.com/wevm/frog/blob/bd4c7740f7497d9b146db4ca63e828af8ed448ca/create-frog/create.ts#L13
   // if there is no -n argument (name, ask for the name of new project)
   let projectName =
     params.n ||
