@@ -29,7 +29,7 @@ export default async function Home({
   const previousFrame = getPreviousFrame<State>(searchParams);
 
   const frameMessage = await getFrameMessage(previousFrame.postBody, {
-    // uncomment if you want to use debugger
+    // remove if you aren't using @frames.js/debugger or you just don't want to use the debugger hub
     hubHttpUrl: "http://localhost:3010/hub",
   });
 
