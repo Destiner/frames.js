@@ -1,3 +1,7 @@
+# Create Frames.js app
+
+Create a new Frames.js app with a single command using predefined templates.
+
 ## Using npm
 
 ```

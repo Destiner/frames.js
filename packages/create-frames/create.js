@@ -104,6 +104,7 @@ export async function create(params) {
   });
 
   if (wantsToInstallDependencies) {
+    log.message(`Installing the dependencies...`);
     const result = spawnSync(pkgManager, ["install"], {
       cwd: destDir,
       stdio: "ignore",
@@ -124,10 +125,10 @@ export async function create(params) {
     `1. Go to the project directory by running: ${pc.blue(`cd ./${projectName}`)}`
   );
   log.step(
-    `2. Start the development server by running: ${pc.blue(await packageManagerRunCommand("dev"))}`
+    `2. Start the development server and run the app in debugger by running: ${pc.blue(await packageManagerRunCommand("dev"))}`
   );
   log.step(
-    `3. Open your browser and go to ${pc.blue(`http://localhost:3000`)} to see your app running`
+    `3. Open your browser and go to ${pc.blue(`http://localhost:3010`)} to see your app running in the debugger`
   );
 
   outro("Done! Your project has been set up! 🎉");
