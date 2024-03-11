@@ -30,7 +30,11 @@ export default async function Home({
 
   const frameMessage = await getFrameMessage(previousFrame.postBody, {
     // remove if you aren't using @frames.js/debugger or you just don't want to use the debugger hub
-    hubHttpUrl: "http://localhost:3010/hub",
+    ...(process.env.NODE_ENV === "production"
+      ? {}
+      : {
+          hubHttpUrl: "http://localhost:3010/hub",
+        }),
   });
 
   if (frameMessage && !frameMessage?.isValid) {
